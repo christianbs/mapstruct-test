@@ -11,12 +11,11 @@ import org.springframework.stereotype.Component;
 public class PaymentSubtypeFacade {
 
     private final ConversionService converter;
-    private final PaymentSubtypeRepository repository;
+
 
     PaymentSubtypeRecord create(final CreatePaymentSubtypeRecord record) {
         final var toCreate = converter.convert(record, PaymentSubtype.class);
-        final var created = repository.save(toCreate);
-        return converter.convert(created, PaymentSubtypeRecord.class);
+        return converter.convert(toCreate, PaymentSubtypeRecord.class);
     }
 
 }

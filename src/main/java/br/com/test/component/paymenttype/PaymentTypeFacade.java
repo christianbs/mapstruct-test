@@ -10,13 +10,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PaymentTypeFacade {
 
-    private final PaymentTypeRepository repository;
     private final ConversionService converter;
 
     PaymentTypeRecord create(final CreatePaymentTypeRecord record) {
         final var toCreate = converter.convert(record, PaymentType.class);
-        final var created = repository.save(toCreate);
-        return converter.convert(created, PaymentTypeRecord.class);
+        return converter.convert(toCreate, PaymentTypeRecord.class);
     }
 
 }
