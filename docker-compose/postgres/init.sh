@@ -1,0 +1,1 @@
+docker exec -it restaurant-manager-postgres psql -U "restaurant_manager_dev" -c "CREATE DATABASE restaurant_manager;"

@@ -1,0 +1,32 @@
+version: '3'
+services:
+  postgres:
+    container_name: restaurant-manager-postgres
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "restaurant_manager_dev"
+      POSTGRES_PASSWORD: "restaurant_manager_dev"
+      POSTGRES_DB: "restaurant_manager_dev"
+    volumes:
+      - restaurant-manager-postgres-volume:/var/lib/postgresql/data
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana_restaurant_manager
+    ports:
+      - "3000:3000"
+
+volumes:
+  restaurant-manager-postgres-volume:
